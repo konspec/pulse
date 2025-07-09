@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
     # LOCAL APPS
+    "apps.core",
     "apps.users",
 ]
 
