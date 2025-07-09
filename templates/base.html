@@ -1,14 +1,95 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data="{ sidebarOpen: false }" class="h-full bg-gray-50">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Dashboard - Konspec{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <script src="{% static 'js/alpine.min.js' %}" defer></script>
+    {% block extra_head %}{% endblock %}
 </head>
 
-<body>
-    {% block main %}{% endblock %}
+<body class="h-full">
+
+    <!-- Wrapper -->
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside
+            class="fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform lg:translate-x-0 transition-transform duration-200 ease-in-out"
+            :class="{ '-translate-x-full': !sidebarOpen }">
+            <div class="flex items-center h-16 px-4 font-semibold text-lg text-gray-700 border-b border-slate-200">
+                Konspec
+            </div>
+            <nav class="mt-4 px-4 space-y-2 text-sm">
+                <a href="{% url 'core:index' %}"
+                    class="block px-3 py-2 rounded hover:bg-gray-100 text-gray-800">Dashboard</a>
+                <a href="{% url 'users:logout' %}"
+                    class="block px-3 py-2 rounded hover:bg-gray-100 text-gray-800">Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Backdrop (mobile only) -->
+        <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-40 z-20 lg:hidden"
+            @click="sidebarOpen = false" x-transition.opacity>
+        </div>
+
+        <!-- Main content area -->
+        <div class="flex-1 flex flex-col lg:pl-64">
+
+            <!-- Top Nav -->
+            <header
+                class="sticky top-0 z-10 h-16 bg-white border-b shadow-sm flex items-center justify-between px-4 lg:px-6 border-slate-200">
+                <div class="flex items-center space-x-2">
+                    <!-- Mobile menu button -->
+                    <button class="lg:hidden text-gray-600 focus:outline-none" @click="sidebarOpen = !sidebarOpen">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <span class="font-medium text-gray-700 text-base">Dashboard</span>
+                </div>
+                <div class="text-sm text-gray-600">
+                    Hi, {{ request.user.get_short_name|default:request.user.email }}
+                </div>
+            </header>
+
+            <!-- Main content -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <!-- Messages -->
+                {% if messages %}
+                <div class="px-4 lg:px-6 pt-4">
+                    {% for message in messages %}
+                    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+                        x-transition class="mb-4 rounded border px-4 py-3 flex justify-between items-start text-sm
+                    {% if message.tags == 'success' %}
+                        bg-green-50 text-green-800 border-green-200
+                    {% elif message.tags == 'error' %}
+                        bg-red-50 text-red-800 border-red-200
+                    {% elif message.tags == 'warning' %}
+                        bg-yellow-50 text-yellow-800 border-yellow-200
+                    {% else %}
+                        bg-blue-50 text-blue-800 border-blue-200
+                    {% endif %}
+                ">
+                        <span>{{ message }}</span>
+                        <button @click="show = false" class="ml-4 text-lg font-bold leading-none focus:outline-none">
+                            &times;
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% block content %}{% endblock %}
+            </main>
+
+        </div>
+    </div>
+
+    {% block extra_scripts %}{% endblock %}
 </body>
 
 </html>
