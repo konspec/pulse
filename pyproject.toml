@@ -135,6 +135,7 @@ ignore = [
     "EM102",   # f-string-in-exception
     "G004",    # logging-f-string
     "TRY004",  # type-check-without-type-error
+    "PLC0415", # import should be at top level
 ]
 
 # Rules that should be auto-fixed
