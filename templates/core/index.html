@@ -1,12 +1,5 @@
 {% extends 'base.html' %}
 
-{% block main %}
+{% block content %}
 This is the index page
-{%for message in messages%}
-- {{message}}
-{%endfor%}
-<form action="{% url 'users:logout' %}" method="post">
-    {% csrf_token %}
-    <button>Logout</button>
-</form>
 {% endblock %}
