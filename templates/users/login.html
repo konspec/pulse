@@ -1,0 +1,58 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KONSPEC - Login</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <script src="{% static 'js/alpine.min.js' %}" defer></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+
+    <!-- Dismissible message alerts using Alpine.js -->
+    {% if messages %}
+    <div class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-md z-50">
+        {% for message in messages %}
+        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 7000)" x-transition class="mb-4 px-4 py-3 rounded shadow border
+                        {% if message.tags == 'success' %}
+                            bg-green-100 text-green-800 border-green-300
+                        {% elif message.tags == 'error' %}
+                            bg-red-100 text-red-800 border-red-300
+                        {% elif message.tags == 'warning' %}
+                            bg-yellow-100 text-yellow-800 border-yellow-300
+                        {% else %}
+                            bg-blue-100 text-blue-800 border-blue-300
+                        {% endif %}
+                    ">
+            <div class="flex justify-between items-center">
+                <span class="text-sm font-medium">{{ message }}</span>
+                <button @click="show = false" class="text-xl leading-none ml-4 focus:outline-none">&times;</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Login Form -->
+    <form action="{% url 'users:login' %}" method="post"
+        class="w-full max-w-sm border border-slate-200 p-8 bg-white rounded-xl shadow">
+        <h2 class="text-2xl font-semibold text-center mb-6 border-b pb-4">Login to Konspec</h2>
+        {% csrf_token %}
+        {% if next %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+        {{ form|crispy }}
+
+        <button type="submit"
+            class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200">
+            Login
+        </button>
+    </form>
+
+</body>
+
+</html>
