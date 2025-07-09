@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+from django.urls import reverse_lazy
 from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -133,3 +134,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
 CRISPY_TEMPLATE_PACK = "tailwind"
+
+LOGIN_URL = reverse_lazy("users:login")
+LOGOUT_REDIRECT_URL = reverse_lazy("users:login")
+LOGIN_REDIRECT_URL = reverse_lazy("core:index")
