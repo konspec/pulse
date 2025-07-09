@@ -1,0 +1,27 @@
+version: '3'
+
+env:
+  DJANGO_SETTINGS_MODULE: "config.settings"
+  PYTHONPATH: "."
+
+tasks:
+  run:
+    desc: Run the Django development server
+    cmds:
+      - uv run manage.py runserver
+
+  tailwind:
+    desc: Run TailwindCSS in watch mode
+    cmds:
+      - npx tailwindcss -i static/css/tailwind.css -o static/css/output.css --watch
+
+  tailwind:build:
+    desc: Build TailwindCSS assets
+    cmds:
+      - npx tailwindcss -i static/css/tailwind.css -o static/css/output.css --minify
+
+  ruff:
+    desc: Lint the code with Ruff
+    cmds:
+      - ruff format .
+      - ruff check . --fix
