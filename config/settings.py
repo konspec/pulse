@@ -155,6 +155,55 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
 
 # ------------------------------------------------------------------------------
+# LOGGING
+# ------------------------------------------------------------------------------
+
+LOGS_DIR = BASE_DIR / "logs"
+LOGS_DIR.mkdir(exist_ok=True)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname} {name} {module}:{lineno} — {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "file_debug": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOGS_DIR / "debug.log",
+            "maxBytes": 5 * 1024 * 1024,  # 5MB
+            "backupCount": 5,
+            "formatter": "verbose",
+            "level": "INFO",
+        },
+        "file_error": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOGS_DIR / "error.log",
+            "maxBytes": 5 * 1024 * 1024,
+            "backupCount": 5,
+            "formatter": "verbose",
+            "level": "WARNING",
+        },
+    },
+    "root": {
+        "handlers": ["console", "file_debug", "file_error"],
+        "level": "INFO",
+    },
+}
+
+
+# ------------------------------------------------------------------------------
 # MISCELLANEOUS
 # ------------------------------------------------------------------------------
 
