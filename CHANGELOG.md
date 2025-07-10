@@ -1,3 +1,9 @@
+## v0.5.0 (2025-07-10)
+
+### Feat
+
+- **core**: update base template
+
 ## v0.4.0 (2025-07-10)
 
 ### Feat
