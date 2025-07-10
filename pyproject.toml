@@ -11,6 +11,7 @@ dependencies = [
     "django-environ>=0.12.0",
     "django-simple-history>=3.10.1",
     "odyn>=1.0.4",
+    "polars>=1.31.0",
 ]
 
 
