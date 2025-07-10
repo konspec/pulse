@@ -10,5 +10,17 @@ class CustomerAdmin(SimpleHistoryAdmin):
     list_display = ["code", "name"]
     search_fields = ["code", "name"]
 
+    def has_change_permission(self, request, obj=None):  # noqa: ARG002
+        """Check if user has edit permission for the model."""
+        return False
+
+    def has_delete_permission(self, request, obj=None):  # noqa: ARG002
+        """Check if user has delete permission for the model."""
+        return False
+
+    def has_add_permission(self, request, obj=None):  # noqa: ARG002
+        """Check if user has create permission for the model."""
+        return False
+
 
 admin.site.register(Customer, CustomerAdmin)
