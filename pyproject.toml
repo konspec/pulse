@@ -1,6 +1,6 @@
 [project]
 name = "pulse"
-version = "0.5.0"
+version = "0.5.1"
 description = "A BI website powered by django."
 readme = "README.md"
 requires-python = ">=3.12"

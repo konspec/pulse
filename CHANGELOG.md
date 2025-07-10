@@ -1,3 +1,9 @@
+## v0.5.1 (2025-07-10)
+
+### Fix
+
+- **customers**: fix related name on CustomerLedgerEntry model
+
 ## v0.5.0 (2025-07-10)
 
 ### Feat
