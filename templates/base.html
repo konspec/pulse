@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" x-data="{ sidebarOpen: false }" class="h-full bg-gray-50">
+<html lang="en" x-data="{ sidebarOpen: false }" class="h-full bg-slate-50">
 
 <head>
     <meta charset="UTF-8" />
@@ -8,31 +8,72 @@
     <title>{% block title %}Dashboard - Konspec{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
     <script src="{% static 'js/alpine.min.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
     {% block extra_head %}{% endblock %}
 </head>
 
 <body class="h-full">
 
     <!-- Wrapper -->
-    <div class="flex h-screen overflow-hidden">
+    <div class="flex h-screen overflow-hidden bg-slate-50">
 
         <!-- Sidebar -->
         <aside
-            class="fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform lg:translate-x-0 transition-transform duration-200 ease-in-out"
+            class="fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-xl transform lg:translate-x-0 transition-transform duration-300 ease-in-out border-r border-slate-200/60"
             :class="{ '-translate-x-full': !sidebarOpen }">
-            <div class="flex items-center h-16 px-4 font-semibold text-lg text-gray-700 border-b border-slate-200">
-                Konspec
+
+            <!-- Logo Section -->
+            <div class="flex items-center h-16 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-bold text-lg">KONSPEC</span>
+                </div>
             </div>
-            <nav class="mt-4 px-4 space-y-2 text-sm">
+
+            <!-- Navigation -->
+            <nav class="mt-6 px-4 space-y-2">
+                <div class="px-3 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    Main
+                </div>
                 <a href="{% url 'core:index' %}"
-                    class="block px-3 py-2 rounded hover:bg-gray-100 text-gray-800">Dashboard</a>
-                <a href="{% url 'users:logout' %}"
-                    class="block px-3 py-2 rounded hover:bg-gray-100 text-gray-800">Logout</a>
+                    class="flex items-center px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors duration-200 group">
+                    <i data-lucide="layout-dashboard"
+                        class="w-5 h-5 mr-3 text-slate-500 group-hover:text-slate-700"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="#"
+                    class="flex items-center px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors duration-200 group">
+                    <i data-lucide="bar-chart-4" class="w-5 h-5 mr-3 text-slate-500 group-hover:text-slate-700"></i>
+                    <span class="font-medium">Analytics</span>
+                </a>
+                <a href="#"
+                    class="flex items-center px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors duration-200 group">
+                    <i data-lucide="users" class="w-5 h-5 mr-3 text-slate-500 group-hover:text-slate-700"></i>
+                    <span class="font-medium">Users</span>
+                </a>
+                <a href="#"
+                    class="flex items-center px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors duration-200 group">
+                    <i data-lucide="settings" class="w-5 h-5 mr-3 text-slate-500 group-hover:text-slate-700"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+
+                <div class="pt-4 mt-6 border-t border-slate-200">
+                    <div class="px-3 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                        Account
+                    </div>
+                    <a href="{% url 'users:logout' %}"
+                        class="flex items-center px-3 py-2.5 rounded-lg text-slate-700 hover:bg-red-50 hover:text-red-700 transition-colors duration-200 group">
+                        <i data-lucide="log-out" class="w-5 h-5 mr-3 text-slate-500 group-hover:text-red-600"></i>
+                        <span class="font-medium">Logout</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 
         <!-- Backdrop (mobile only) -->
-        <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-40 z-20 lg:hidden"
+        <div x-show="sidebarOpen" class="fixed inset-0 bg-black/50 z-20 lg:hidden backdrop-blur-sm"
             @click="sidebarOpen = false" x-transition.opacity>
         </div>
 
@@ -41,41 +82,87 @@
 
             <!-- Top Nav -->
             <header
-                class="sticky top-0 z-10 h-16 bg-white border-b shadow-sm flex items-center justify-between px-4 lg:px-6 border-slate-200">
-                <div class="flex items-center space-x-2">
+                class="sticky top-0 z-10 h-16 bg-white/80 backdrop-blur-md border-b border-slate-200/60 flex items-center justify-between px-4 lg:px-6 shadow-sm">
+                <div class="flex items-center space-x-4">
                     <!-- Mobile menu button -->
-                    <button class="lg:hidden text-gray-600 focus:outline-none" @click="sidebarOpen = !sidebarOpen">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <button
+                        class="lg:hidden text-slate-600 hover:text-slate-900 focus:outline-none p-2 rounded-lg hover:bg-slate-100 transition-colors"
+                        @click="sidebarOpen = !sidebarOpen">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    <span class="font-medium text-gray-700 text-base">Dashboard</span>
+                    <div>
+                        <h1 class="font-semibold text-slate-900 text-lg">Dashboard</h1>
+                        <p class="text-sm text-slate-500">Welcome back to your workspace</p>
+                    </div>
                 </div>
-                <div class="text-sm text-gray-600">
-                    Hi, {{ request.user.get_short_name|default:request.user.email }}
+
+                <div class="flex items-center space-x-4">
+                    <!-- Search -->
+                    <div class="hidden md:block relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+                        </div>
+                        <input type="text" placeholder="Search..."
+                            class="pl-10 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-50 hover:bg-white transition-colors">
+                    </div>
+
+                    <!-- Notifications -->
+                    <button
+                        class="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+                    </button>
+
+                    <!-- User menu -->
+                    <div class="flex items-center space-x-3">
+                        <div
+                            class="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-medium">
+                                {{ request.user.email|slice:1|upper }}
+                            </span>
+                        </div>
+                        <div class="hidden md:block">
+                            <p class="text-sm font-medium text-slate-900">{{ request.user.email }}</p>
+                            <p class="text-xs text-slate-500">Administrator</p>
+                        </div>
+                    </div>
                 </div>
             </header>
 
             <!-- Main content -->
-            <main class="flex-1 overflow-y-auto p-6">
+            <main class="flex-1 overflow-y-auto bg-slate-50">
                 <!-- Messages -->
                 {% if messages %}
-                <div class="px-4 lg:px-6 pt-4">
+                <div class="p-4 lg:p-6">
                     {% for message in messages %}
                     <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
-                        x-transition class="mb-4 rounded border px-4 py-3 flex justify-between items-start text-sm
+                        x-transition class="mb-4 rounded-lg border px-4 py-3 flex justify-between items-start shadow-sm backdrop-blur-sm
                     {% if message.tags == 'success' %}
-                        bg-green-50 text-green-800 border-green-200
+                        bg-emerald-50/80 text-emerald-800 border-emerald-200/50
                     {% elif message.tags == 'error' %}
-                        bg-red-50 text-red-800 border-red-200
+                        bg-red-50/80 text-red-800 border-red-200/50
                     {% elif message.tags == 'warning' %}
-                        bg-yellow-50 text-yellow-800 border-yellow-200
+                        bg-amber-50/80 text-amber-800 border-amber-200/50
                     {% else %}
-                        bg-blue-50 text-blue-800 border-blue-200
+                        bg-blue-50/80 text-blue-800 border-blue-200/50
                     {% endif %}
                 ">
-                        <span>{{ message }}</span>
-                        <button @click="show = false" class="ml-4 text-lg font-bold leading-none focus:outline-none">
+                        <div class="flex items-center space-x-2">
+                            {% if message.tags == 'success' %}
+                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+                            {% elif message.tags == 'error' %}
+                            <i data-lucide="alert-circle" class="w-4 h-4 text-red-600"></i>
+                            {% elif message.tags == 'warning' %}
+                            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-600"></i>
+                            {% else %}
+                            <i data-lucide="info" class="w-4 h-4 text-blue-600"></i>
+                            {% endif %}
+                            <span class="text-sm font-medium">{{ message }}</span>
+                        </div>
+                        <button @click="show = false"
+                            class="ml-4 text-lg font-bold leading-none focus:outline-none opacity-60 hover:opacity-100 transition-opacity">
                             &times;
                         </button>
                     </div>
@@ -83,11 +170,113 @@
                 </div>
                 {% endif %}
 
-                {% block content %}{% endblock %}
+                <!-- Content Area -->
+                <div class="p-4 lg:p-6">
+                    {% block content %}
+                    <!-- Default dashboard content -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <!-- Stats Cards -->
+                        <div
+                            class="bg-white rounded-xl shadow-sm border border-slate-200/60 p-6 hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-slate-600">Total Users</p>
+                                    <p class="text-2xl font-bold text-slate-900">1,234</p>
+                                </div>
+                                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="users" class="w-6 h-6 text-blue-600"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center text-sm">
+                                <span class="text-emerald-600 font-medium">+12%</span>
+                                <span class="text-slate-500 ml-2">from last month</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl shadow-sm border border-slate-200/60 p-6 hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-slate-600">Revenue</p>
+                                    <p class="text-2xl font-bold text-slate-900">$12,345</p>
+                                </div>
+                                <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="dollar-sign" class="w-6 h-6 text-emerald-600"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center text-sm">
+                                <span class="text-emerald-600 font-medium">+8%</span>
+                                <span class="text-slate-500 ml-2">from last month</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl shadow-sm border border-slate-200/60 p-6 hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-slate-600">Orders</p>
+                                    <p class="text-2xl font-bold text-slate-900">567</p>
+                                </div>
+                                <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="shopping-cart" class="w-6 h-6 text-amber-600"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center text-sm">
+                                <span class="text-red-600 font-medium">-3%</span>
+                                <span class="text-slate-500 ml-2">from last month</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl shadow-sm border border-slate-200/60 p-6 hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-slate-600">Conversion</p>
+                                    <p class="text-2xl font-bold text-slate-900">2.4%</p>
+                                </div>
+                                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="trending-up" class="w-6 h-6 text-purple-600"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center text-sm">
+                                <span class="text-emerald-600 font-medium">+5%</span>
+                                <span class="text-slate-500 ml-2">from last month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart placeholder -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200/60 p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-slate-900">Analytics Overview</h3>
+                            <div class="flex items-center space-x-2">
+                                <button
+                                    class="px-3 py-1 text-sm bg-slate-100 text-slate-700 rounded-md hover:bg-slate-200 transition-colors">7D</button>
+                                <button class="px-3 py-1 text-sm bg-blue-600 text-white rounded-md">30D</button>
+                                <button
+                                    class="px-3 py-1 text-sm bg-slate-100 text-slate-700 rounded-md hover:bg-slate-200 transition-colors">90D</button>
+                            </div>
+                        </div>
+                        <div class="h-64 bg-slate-50 rounded-lg flex items-center justify-center">
+                            <div class="text-center">
+                                <i data-lucide="bar-chart-3" class="w-12 h-12 text-slate-400 mx-auto mb-2"></i>
+                                <p class="text-slate-500">Chart will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock %}
+                </div>
             </main>
 
         </div>
     </div>
+
+    <!-- Initialize Lucide icons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lucide.createIcons();
+        });
+    </script>
 
     {% block extra_scripts %}{% endblock %}
 </body>
