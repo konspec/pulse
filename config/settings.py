@@ -159,3 +159,6 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 # ------------------------------------------------------------------------------
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+ERP_BASE_URL = env.str("ERP_BASE_URL")
+ERP_USERNAME = env.str("ERP_USERNAME")
+ERP_PASSWORD = env.str("ERP_PASSWORD")
