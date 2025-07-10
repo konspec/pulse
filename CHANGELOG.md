@@ -1,3 +1,11 @@
+## v0.4.0 (2025-07-10)
+
+### Feat
+
+- **customers**: add management command to load customer ledger entries
+- **customers**: add admin for CustomerLedgerEntry with read-only permissions
+- **customers**: add CustomerLedgerEntry model to customers app
+
 ## v0.3.0 (2025-07-10)
 
 ### Feat
