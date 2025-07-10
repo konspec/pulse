@@ -26,7 +26,9 @@ class CustomerLedgerEntry(models.Model):
     """Customer ledger entry model. Synced with ERP."""
 
     # FOREIGN KEY
-    customer = models.ForeignKey(Customer, on_delete=models.PROTECT, null=False, blank=False)
+    customer = models.ForeignKey(
+        Customer, on_delete=models.PROTECT, null=False, blank=False, related_name="ledger_entries"
+    )
 
     # UNIQUE FIELD
     entry_no = models.CharField(max_length=20, null=False, blank=False, unique=True)
