@@ -5,7 +5,7 @@ from simple_history.models import HistoricalRecords
 class Customer(models.Model):
     """Customer model. Synced with ERP."""
 
-    code = models.CharField(max_length=10, unique=True, null=False, blank=False)
+    code = models.CharField(max_length=20, unique=True, null=False, blank=False)
     name = models.CharField(max_length=255, null=False, blank=False)
 
     history = HistoricalRecords()
