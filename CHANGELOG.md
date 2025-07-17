@@ -1,3 +1,10 @@
+## v0.5.2 (2025-07-17)
+
+### Fix
+
+- **customers**: migrate related name field in CustomerLedgerEntry model
+- **customers**: fix return type of __str__ method of Customer class
+
 ## v0.5.1 (2025-07-10)
 
 ### Fix
