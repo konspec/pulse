@@ -17,7 +17,7 @@ class Customer(models.Model):
         verbose_name_plural = "Customers"
         ordering = ["code"]
 
-    def __str__(self) -> None:
+    def __str__(self) -> str:
         """Return a string representation of the customer object."""
         return f"({self.code}) {self.name}"
 
